@@ -7,7 +7,7 @@ The project is a UNIX command line interpreter. The shell has prompt ($) and its
 ### Clone repository
 To clone the repository, you must type the following command: 
 ```bash
-git clone https://github.com/yulyzulu/simple_shell.git
+git clone https://github.com/twinmagix/simple_shell.git
 ```
 ### Compilation
 To compile the program, it must be compiled with the following command: 
