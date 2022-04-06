@@ -1,0 +1,113 @@
+.TH man 1 "06 April 2022" "0.32" "Simple Shell man page"
+.SH NAME
+.B simple_shell
+- Simple Shell program
+.SH SYNOPSIS
+.SH 
+.SH hsh [options] [file]
+.SH
+.SH DESCRIPTION
+Hsh is an sh-compatible command language interpreter that executes commands read from the standard input or from a file. 
+.SH
+.SH INVOCATION
+.SH Simple Shell must be called with the command ./hsh mode interactive
+.SH And to call the Simple Shell with non-mode interactive with the command echo "/bin/ls" | ./hsh
+.SH Then the prompt appears as: ($)
+.SH
+.SH COMMAND EXECUTION
+After a command has been split into words, if it results in a simple command and an optional list of arguments, the following actions are taken.
+
+If the command name contains no slashes, the shell attempts to locate it. If there exists a shell function by that name, that function is invoked as described above in FUNCTIONS. If the name does not match a function, the shell searches for it in the list of shell builtins. If a match is found, that builtin is invoked.
+
+If the name is neither a shell function nor a builtin, and contains no slashes, bash searches each element of the PATH for a directory containing an executable file by that name. Bash uses a hash table to remember the full pathnames of executable files (see hash under SHELL BUILTIN COMMANDS below). A full search of the directories in PATH is performed only if the command is not found in the hash table. If the search is unsuccessful, the shell searches for a defined shell function named command_not_found_handle. If that function exists, it is invoked with the original command and the original command's arguments as its arguments, and the function's exit status becomes the exit status of the shell. If that function is not defined, the shell prints an error message and returns an exit status of 127.
+
+If the search is successful, or if the command name contains one or more slashes, the shell executes the named program in a separate execution environment. Argument 0 is set to the name given, and the remaining arguments to the command are set to the arguments given, if any.
+.SH
+.SH ENVIRONMENT
+When a program is invoked it is given an array of strings called the environment. This is a list of name-value pairs, of the form name=value.
+
+The shell provides several ways to manipulate the environment. On invocation, the shell scans its own environment and creates a parameter for each name found, automatically marking it for export to child processes. Executed commands inherit the environment. 
+.SH
+.SH EXIT STATUS
+The exit status of an executed command is the value returned by the waitpid system call or equivalent function.
+Shell builtin commands return a status of 0 (true) if successful, and non-zero (false) if an error occurs while they execute.
+
+EXIT
+Cause the shell to exit with a status, the exit status is that of the last command executed. A trap on EXIT is executed before the shell terminates.
+.SH
+.SH PROMPTING
+When executing interactively, bash displays the primary prompt PS1 when it is ready to read a command, and the secondary prompt PS2 when it needs more input to complete a command.
+.SH
+.SH SHELL BUILTIN COMMANDS
+In this shell we implement the "exit" and "env" builtins that are processed by hsh.   
+.SH
+.SH EXAMPLES TEST
+we compare with shell function original our own simple_shell function with next examples:
+.SH
+.SH Examples commands
+Enter any of the following commands to:
+.SH ls: Displays a list of the names of all files in the current working directory.
+.SH ls -l: print files in a long listing format. 
+.SH ls -a: display all files including the hidden files.
+.SH ls /tmp: isplays a list of the names of all files in the /tmp directory.
+.SH pwd: print working directory
+.SH echo: display line of text/string that are passed as an argument.
+.SH cat: lists the contents of files to the terminal window.
+.SH 
+.SH vagrant@vagrant-ubuntu-trusty-64:~/simple_shell$ ./hsh
+.SH ($) ls
+.SH AUTHORS    built_in.c          functions_help.c   hsh             main.c              parse_line.c  shell.h
+.SH README.md  concatenate_list.c  functions_help2.c  list_creator.c  man_1_simple_shell  read_line.c
+.SH ($) ls -l
+.SH total 72
+.SH -rw-rw-r-- 1 vagrant vagrant   176 Nov 27 21:24 AUTHORS
+.SH -rw-rw-r-- 1 vagrant vagrant    15 Nov 27 21:24 README.md
+.SH -rw-rw-r-- 1 vagrant vagrant   615 Nov 27 21:24 built_in.c
+.SH -rw-rw-r-- 1 vagrant vagrant   620 Nov 27 21:24 concatenate_list.c
+.SH -rw-rw-r-- 1 vagrant vagrant  1934 Nov 27 21:24 functions_help.c
+.SH -rw-rw-r-- 1 vagrant vagrant  1972 Nov 27 21:24 functions_help2.c
+.SH -rwxrwxr-x 1 vagrant vagrant 22211 Nov 27 21:24 hsh
+.SH -rw-rw-r-- 1 vagrant vagrant   351 Nov 27 21:24 list_creator.c
+.SH -rw-rw-r-- 1 vagrant vagrant   847 Nov 27 21:24 main.c
+.SH -rw-rw-r-- 1 vagrant vagrant  3394 Nov 27 21:24 man_1_simple_shell
+.SH -rw-rw-r-- 1 vagrant vagrant   688 Nov 27 21:24 parse_line.c
+.SH -rw-rw-r-- 1 vagrant vagrant   371 Nov 27 21:24 read_line.c
+.SH -rw-rw-r-- 1 vagrant vagrant  1178 Nov 27 21:24 shell.h
+.SH ($)
+.SH 
+.SH FILES
+.SH
+.SH main.c: File to call Shell functions.
+.SH read_line.c: Get the text typed by the user.
+.SH parse_line.c: Parse the string.
+.SH built_in.c: Execute built commands.
+.SH concatenate_list.c: Concatenate nodes.
+.SH functions_help.c: File containing the functions: _strlen: Return lenth to a string;
+.SH _strcmp: Compares two strings; _strcat: Concateate two strings; _realloc: reallocates a memory block
+.SH functions_help2.c: File containing the functions: add_node: Add new node at the beginning of a list;
+.SH free_list: Free a list;_strcpy: copies the string pointed; string_nconcat: Concatenates two strings; 
+.SH _strdup: Duplicate a string.
+.SH send_list.c: Create a list.
+.SH shell.h: Header.
+.SH
+.SH SEE ALSO
+.SH 
+.SH access (man 2 access)
+.SH execve (man 2 execve)
+.SH exit (man 3 exit)
+.SH fork (man 2 fork)
+.SH free (man 3 free)
+.SH getline (man 3 getline)
+.SH isatty (man 3 isatty)
+.SH malloc (man 3 malloc)
+.SH perror (man 3 perror)
+.SH strtok (man 3 strtok)
+.SH wait (man 2 wait)
+.SH
+.SH BUGS
+So far no bugs have been found, if you find any please report it
+.SH 
+.SH 
+.SH AUTHORS
+Sazi Andile Ndwandwe and Ntuthuko Junior Mashinini
+	
