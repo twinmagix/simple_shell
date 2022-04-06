@@ -114,7 +114,7 @@ vagrant@vagrant-ubuntu-trusty-64:~/simple_shell$
 
 
 ## Authors
-Cristian Gómez Bernal- Github: cristian-fg
+Sazi A. Ndwandwe- Github: twinmagix
 
-Yulieth Zuluaga Gómez- Github: yulyzulu
+Ntuthuko Jr Mashinini- Github: ntuthukojr
 
